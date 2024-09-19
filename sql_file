@@ -1,0 +1,208 @@
+CREATE DATABASE assignment_1;
+
+USE assignment_1;
+
+
+
+CREATE TABLE departments (
+    d_id INT PRIMARY KEY,
+    d_name VARCHAR(50),
+    d_gmail VARCHAR(50)
+);
+
+CREATE TABLE teachers (
+    t_id INT PRIMARY KEY,
+    t_first_name VARCHAR(50),
+    t_last_name VARCHAR(50),
+    t_age TINYINT,
+    t_gender VARCHAR(10),
+    t_salary INT,
+    t_department INT,
+    t_email VARCHAR(100),
+    FOREIGN KEY (t_department) REFERENCES departments(d_id)
+);
+
+CREATE TABLE courses (
+    c_id INT PRIMARY KEY,
+    c_name VARCHAR(50),
+    c_teacher INT,
+    c_department INT,
+    c_credits TINYINT,
+    FOREIGN KEY (c_teacher) REFERENCES teachers(t_id),
+    FOREIGN KEY (c_department) REFERENCES departments(d_id)
+);
+
+CREATE TABLE students (
+    s_id INT PRIMARY KEY,
+    s_first_name VARCHAR(50),
+    s_last_name VARCHAR(50),
+    s_age SMALLINT,
+    s_gender VARCHAR(10),
+    s_course INT,
+    s_gpa TINYINT,
+    s_program VARCHAR(20),
+    FOREIGN KEY (s_course) REFERENCES courses(c_id)
+);
+
+CREATE TABLE enrollments (
+    e_id INT PRIMARY KEY,
+    e_s_id INT,
+    e_c_id INT,
+    e_date DATE,
+    FOREIGN KEY (e_s_id) REFERENCES students(s_id),
+    FOREIGN KEY (e_c_id) REFERENCES courses(c_id)
+);
+
+
+
+-- Наступні наповнення створені з допомогою CHATGPT
+
+INSERT INTO departments (d_id, d_name, d_gmail) VALUES 
+(1, 'Computer Science', 'cs@university.com'),
+(2, 'Mathematics', 'math@university.com'),
+(3, 'Physics', 'physics@university.com'),
+(4, 'Chemistry', 'chemistry@university.com'),
+(5, 'Biology', 'biology@university.com'),
+(6, 'History', 'history@university.com');
+
+
+INSERT INTO teachers (t_id, t_first_name, t_last_name, t_age, t_gender, t_salary, t_department, t_email) VALUES 
+(1, 'John', 'Doe', 45, 'Male', 75000, 1, 'johndoe@university.com'),
+(2, 'Jane', 'Smith', 39, 'Female', 68000, 2, 'janesmith@university.com'),
+(3, 'Emily', 'Johnson', 50, 'Female', 72000, 3, 'emilyjohnson@university.com'),
+(4, 'Michael', 'Brown', 35, 'Male', 69000, 4, 'michaelbrown@university.com'),
+(5, 'William', 'Garcia', 47, 'Male', 77000, 1, 'williamgarcia@university.com'),
+(6, 'Olivia', 'Martinez', 42, 'Female', 71000, 2, 'oliviamartinez@university.com'),
+(7, 'Isabella', 'Hernandez', 33, 'Female', 64000, 5, 'isabellahernandez@university.com'),
+(8, 'James', 'Wilson', 44, 'Male', 76000, 6, 'jameswilson@university.com'),
+(9, 'Mia', 'Lopez', 38, 'Female', 68000, 3, 'mialopez@university.com'),
+(10, 'Sophia', 'Taylor', 29, 'Female', 65000, 1, 'sophiataylor@university.com'),
+(11, 'Alexander', 'White', 55, 'Male', 81000, 4, 'alexanderwhite@university.com'),
+(12, 'Benjamin', 'Davis', 43, 'Male', 73000, 5, 'benjamindavis@university.com'),
+(13, 'Charlotte', 'Moore', 31, 'Female', 66000, 6, 'charlottemoore@university.com'),
+(14, 'Mason', 'Jackson', 40, 'Male', 70000, 2, 'masonjackson@university.com'),
+(15, 'Elijah', 'Lee', 37, 'Male', 69000, 3, 'elijahlee@university.com'),
+(16, 'Ava', 'Perez', 34, 'Female', 67000, 4, 'avaperez@university.com'),
+(17, 'Noah', 'Martin', 41, 'Male', 72000, 5, 'noahmartin@university.com'),
+(18, 'Lucas', 'Thompson', 36, 'Male', 69000, 6, 'lucasthompson@university.com'),
+(19, 'Mila', 'Harris', 32, 'Female', 64000, 1, 'milaharris@university.com'),
+(20, 'Harper', 'Clark', 39, 'Female', 70000, 2, 'harperclark@university.com');
+
+
+INSERT INTO courses (c_id, c_name, c_teacher, c_department, c_credits) VALUES 
+(1, 'Introduction to Computer Science', 1, 1, 3),
+(2, 'Data Structures and Algorithms', 5, 1, 1),
+(3, 'Linear Algebra', 2, 2, 3),
+(4, 'Abstract Algebra', 6, 2, 4),
+(5, 'Classical Mechanics', 3, 3, 1),
+(6, 'Quantum Physics', 9, 3, 5),
+(7, 'Organic Chemistry', 4, 4, 3),
+(8, 'Biochemistry', 12, 5, 4),
+(9, 'European History', 8, 6, 2),
+(10, 'Ancient History', 13, 6, 4),
+(11, 'Machine Learning', 10, 1, 1),
+(12, 'Calculus I', 14, 2, 3),
+(13, 'Genetics', 17, 5, 4);
+
+
+INSERT INTO students (s_id, s_first_name, s_last_name, s_age, s_gender, s_course, s_gpa, s_program) VALUES 
+(1, 'Liam', 'Walker', 20, 'Male', 1, 3, 'CS'),
+(2, 'Emma', 'Scott', 21, 'Female', 2, 4, 'CS'),
+(3, 'Noah', 'Adams', 22, 'Male', 3, 3, 'Math'),
+(4, 'Olivia', 'Wright', 20, 'Female', 4, 4, 'Math'),
+(5, 'William', 'Green', 19, 'Male', 5, 2, 'Physics'),
+(6, 'Sophia', 'Evans', 21, 'Female', 6, 3, 'Physics'),
+(7, 'James', 'King', 23, 'Male', 7, 2, 'Chemistry'),
+(8, 'Isabella', 'Baker', 22, 'Female', 8, 4, 'Chemistry'),
+(9, 'Benjamin', 'Hill', 20, 'Male', 9, 3, 'Biology'),
+(10, 'Ava', 'Ward', 21, 'Female', 10, 3, 'History'),
+(11, 'Lucas', 'Torres', 20, 'Male', 11, 4, 'CS'),
+(12, 'Mia', 'Rivera', 22, 'Female', 12, 3, 'Math'),
+(13, 'Ethan', 'Cox', 23, 'Male', 13, 3, 'Biology'),
+(14, 'Charlotte', 'Morgan', 21, 'Female', 1, 3, 'CS'),
+(15, 'Elijah', 'Bell', 22, 'Male', 2, 2, 'CS'),
+(16, 'Harper', 'Murphy', 21, 'Female', 3, 4, 'Math'),
+(17, 'Amelia', 'Bailey', 22, 'Female', 4, 3, 'Math'),
+(18, 'Mason', 'Sanders', 21, 'Male', 5, 4, 'Physics'),
+(19, 'Logan', 'Long', 23, 'Male', 6, 3, 'Physics'),
+(20, 'Jacob', 'Reed', 20, 'Male', 7, 2, 'Chemistry'),
+(21, 'Ella', 'Price', 21, 'Female', 8, 4, 'Chemistry'),
+(22, 'Alexander', 'Howard', 22, 'Male', 9, 3, 'Biology'),
+(23, 'Aiden', 'Brooks', 23, 'Male', 10, 2, 'History'),
+(24, 'Emily', 'Ross', 20, 'Female', 11, 3, 'CS'),
+(25, 'Daniel', 'Bryant', 21, 'Male', 12, 4, 'Math');
+
+
+INSERT INTO enrollments (e_id, e_s_id, e_c_id, e_date) VALUES 
+(1, 1, 1, '2024-09-01'),
+(2, 2, 2, '2024-09-01'),
+(3, 3, 3, '2024-09-02'),
+(4, 4, 4, '2024-09-02'),
+(5, 5, 5, '2024-09-03'),
+(6, 6, 6, '2024-09-03'),
+(7, 7, 7, '2024-09-04'),
+(8, 8, 8, '2024-09-04'),
+(9, 9, 9, '2024-09-05'),
+(10, 10, 10, '2024-09-05'),
+(11, 11, 11, '2024-09-06'),
+(12, 12, 12, '2024-09-06'),
+(13, 13, 13, '2024-09-07'),
+(14, 14, 1, '2024-09-07'),
+(15, 15, 2, '2024-09-08'),
+(16, 16, 3, '2024-09-08'),
+(17, 17, 4, '2024-09-09'),
+(18, 18, 5, '2024-09-09'),
+(19, 19, 6, '2024-09-10'),
+(20, 20, 7, '2024-09-10'),
+(21, 21, 8, '2024-09-11'),
+(22, 22, 9, '2024-09-11'),
+(23, 23, 10, '2024-09-12'),
+(24, 24, 11, '2024-09-12'),
+(25, 25, 12, '2024-09-13'),
+(26, 1, 13, '2024-09-13'),
+(27, 2, 1, '2024-09-14'),
+(28, 3, 2, '2024-09-14'),
+(29, 4, 3, '2024-09-15'),
+(30, 5, 4, '2024-09-15'),
+(31, 6, 5, '2024-09-16'),
+(32, 7, 6, '2024-09-16'),
+(33, 8, 7, '2024-09-17'),
+(34, 9, 8, '2024-09-17'),
+(35, 10, 9, '2024-09-18');
+
+
+SELECT * FROM departments;
+SELECT * FROM teachers;
+SELECT * FROM courses;
+SELECT * FROM students;
+SELECT * FROM enrollments;
+
+DROP TABLE departments;
+DROP TABLE teachers;
+DROP TABLE courses;
+DROP TABLE students;
+DROP TABLE enrollments;
+
+
+-- Виконання основного завдання
+-- Це розвязання показує нам студентів, їх навчальні предмети, кількість зарахованих студентів, викладача, кафедру та кількість ЄКТС кредитів (до уваги брав тількі ті у яких більше чим 2) відсортованих за відком студентів
+
+
+WITH enrillement_info AS ( 
+	SELECT courses.c_name, count(enrollments.e_c_id) q_enrolled
+	FROM courses
+	LEFT JOIN enrollments ON enrollments.e_c_id = courses.c_id
+	GROUP BY courses.c_name
+),
+full_info AS (
+	SELECT courses.c_id, courses.c_name, enrillement_info.q_enrolled, courses.c_teacher, courses.c_department, courses.c_credits 
+	FROM enrillement_info
+	JOIN courses ON enrillement_info.c_name = courses.c_name
+	WHERE courses.c_credits > 2
+)
+SELECT students.s_age, students.s_first_name, students.s_last_name, full_info.c_name, full_info.q_enrolled, teachers.t_first_name, teachers.t_last_name, departments.d_name, full_info.c_credits
+FROM full_info
+LEFT JOIN teachers ON teachers.t_id = full_info.c_teacher
+LEFT JOIN departments ON departments.d_id = full_info.c_department
+LEFT JOIN students ON students.s_course = full_info.c_id
+ORDER BY students.s_age DESC;
